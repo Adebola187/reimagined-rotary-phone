@@ -1,0 +1,41 @@
+{{ block title }}
+
+   {{ if subsession.round_number == C.NUM_ROUNDS }}
+
+{{endif}}
+{{endblock}}
+
+{{block content}}
+
+    <p>
+        This was the round that was randomly selected for payment:
+       Round {{participant.selected_round }}
+    </p>
+    <p>
+        In this round,you chose lottery: <br />
+    {{ question }} <br />
+
+    </p>
+
+Your reward from the lottery you choose is determined by a random number between 1 and 100. Your random number is: {{ probability_number }}
+    <p>You have won {{ answer }} points<br/>
+    </p>
+
+
+
+<br> You have earned {{ answer }} * 0.2 =  £{{ player.payoff }} <br/>
+
+<br>Your final reward is {{ participationfee }} + £{{ player.payoff }} = £{{Total_reward}}</br>
+
+    <p>
+
+    </p>
+<p>
+
+</p>
+
+    <p> Thank you for your time! </p>
+
+{{ endblock }}
+
+

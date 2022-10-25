@@ -1,0 +1,176 @@
+
+{{ block title}}
+
+{{ endblock }}
+
+{{ block content }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        #sampleview > span{
+            visibility: visible;
+        }
+        #sampleview{
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+            transition: all 1s;
+        }
+        #sampleview > div{
+              display: flex;
+              flex-direction: column;
+        }
+        #sampleview > div > span{
+            width: 100px;
+            font-size: 25px;
+            border: 1px solid gray;
+            background: lightblue;
+            border-radius: 5px;
+            height: 100px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hide-text {
+          text-indent: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          color: transparent;
+        }
+        .sample-container{
+            display:flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+        .sample-container > div{
+            width: 100%;
+            flex: 0 0 100%;
+        }
+        #id_q1{
+            display: flex;
+            justify-content: space-around;
+        }
+        .form-check input[type=radio]{
+            width: 100px;
+            border: 1px solid gray;
+            background: #598bd5;
+            border-radius: 5px;
+            height: 100px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        label {
+            display: block;
+        }
+        input[type=radio]{
+            visibility : visible;
+        }
+        .btnx{
+            padding: 10px;
+            margin: 30px auto;
+        }
+    </style>
+<p>{{rounds}}</p>
+<h2 id="header">
+   Which of these lotteries would you prefer?
+</h2>
+
+<div class="sample-container">
+    <div id="sampleview">
+        <div>
+            <span class="hide-text"></span><button type="button" class="btn btn-primary btnx" id="viewsample1">Lottery 1</button>
+        </div>
+        <div>
+            <span class="hide-text"></span><button type="button" class="btn btn-primary btnx" id="viewsample2">Lottery 2</button>
+        </div>
+    </div>
+    <div id="sampleview2">
+        <input type="hidden" name="clicks1" id="clicks1" value="[0,0]" />
+        {{ formfield 'q1' }}
+    </div>
+</div>
+<button type="button" class="btn btn-primary btnx" id="next">Proceed</button>
+
+<div id="nextpage" style="visibility:hidden">
+    {{ next_button }}
+</div>
+<script>
+    let clickcount1 = 0;
+    let clickcount2 = 0;
+    let element1 = "", element2 = "";
+    if(document.querySelector(".form-check input[type=radio]:first-child").value == 1){
+        document.querySelector("#sampleview > div:first-child > span").setAttribute("data-value", JSON.stringify(js_vars.percentage1));
+        document.querySelector("#sampleview > div:last-child > span").setAttribute("data-value", JSON.stringify(js_vars.percentage2));
+    }else{
+        document.querySelector("#sampleview > div:last-child > span").setAttribute("data-value", JSON.stringify(js_vars.percentage2));
+        document.querySelector("#sampleview > div:first-child > span").setAttribute("data-value", JSON.stringify(js_vars.percentage1));
+        temp = document.querySelector("#viewsample1").innerText;
+        document.querySelector("#viewsample1").innerText = document.querySelector("#viewsample2").innerText;
+        document.querySelector("#viewsample2").innerText = temp;
+    }
+    document.querySelector("#next").addEventListener("click", event => {
+        (event.target || event.srcElement).style.visibility = "hidden";
+        document.querySelector("#sampleview").style.marginLeft = "-101%";
+        document.querySelector("#nextpage").style.visibility = "visible";
+        document.querySelector("#instructions").innerText = "You can select your answer here";
+        document.querySelector("#header").style.display = "none";
+    });
+
+    //Click event listener for view button 1
+    document.querySelector("#viewsample1").addEventListener("click", event => {
+        if(++clickcount1 < 100){ //Check if number of clicks is less than 100
+            //get the span element that shows the value when clicked!
+            document.getElementById('clicks1').value = `[${clickcount1}, ${clickcount2}]`;
+            // Get the percentage1 value from otree's js_vars variable
+            // The otree's js_vars variable is used to retrieve javascript values passed
+            // to the page from the python __init__ file using the def js_vars(player): function
+
+            let decodedvalue = JSON.parse(document.querySelector("#sampleview > div:first-child > span").getAttribute("data-value"));
+            document.querySelector("#sampleview > div:first-child > span").innerText = decodedvalue[Math.floor(Math.random() * decodedvalue.length)];
+
+            document.querySelector("#sampleview > div:first-child > span").classList.toggle("hide-text"); // toggles the class to either remove it from the element or add it
+            let interval1 = setInterval(() => {   // controls how long the span text shows currently set to 500 milliseconds
+                  document.querySelector("#sampleview > div:first-child > span").classList.toggle("hide-text");
+                  clearInterval(interval1);
+                }, 500);
+        }
+    });
+
+    //Click event listener for view button 2
+    document.querySelector("#viewsample2").addEventListener("click", event => {
+        if(++clickcount2 < 100){ //Check if number of clicks is less than 100
+        //get the span element that shows the value when clicked!
+            document.getElementById('clicks1').value = `[${clickcount1}, ${clickcount2}]`;
+            // Get the percentage1 value from otree's js_vars variable
+            // The otree's js_vars variable is used to retrieve javascript values passed
+            // to the page from the python __init__ file using the def js_vars(player): function
+
+            let decodedvalue = JSON.parse(document.querySelector("#sampleview > div:last-child > span").getAttribute("data-value"));
+            document.querySelector("#sampleview > div:last-child > span").innerText = decodedvalue[Math.floor(Math.random() * decodedvalue.length)];
+
+            document.querySelector("#sampleview > div:last-child > span").classList.toggle("hide-text"); // toggles the class to either remove it from the element or add it
+            let interval = setInterval(() => { // controls how long the span text shows currently set to 500 milliseconds
+                  document.querySelector("#sampleview > div:last-child > span").classList.toggle("hide-text");
+                  clearInterval(interval);
+                }, 500);
+        }
+    });
+</script>
+<div id="instructions">
+    <br>
+    Please note: The lottery prizes are in points.
+    Click on each Lottery 1 and lottery 2 button to view the lottery prizes.
+    You can click each option as many times as you want to understand your options. However you cannot sample for more than 100 times.
+        <br/>
+    <br>
+    When you decide that you have acquired adequate information about your options, click "proceed" to move to the
+    next page where you can select your choice by clicking the Lottery 1 or 2 button. <br/>
+
+    <br> After making your choice, please click on the 'Next' button to proceed to the next question.
+    You can modify your preferred option as many times as you want before pressing the 'Next' button;
+    however, you can no longer change your preference once you advance to the next page.
+</div>
+{{ endblock }}
+

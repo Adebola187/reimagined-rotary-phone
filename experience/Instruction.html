@@ -1,0 +1,59 @@
+{{ block title}}
+  INSTRUCTIONS
+{{ endblock }}
+
+{{ block content }}
+<P>
+    In this task, Lotteries are presented in pairs separately (i.e., Lottery A and Lottery B) on your screen's right and
+    left sides. The prizes and probabilities of the lotteries will NOT be readily available, and you have to learn about
+    them as explained below.
+
+   <br> To learn about the value of a lottery, click the corresponding Sample button (Sample A or Sample B, see Fig. 1a)
+    to sample each lottery to explore your choices. Each time you click on the sample button below each lottery,
+    the computer reveals the values of the lottery's possible prizes and probabilities.
+<br/>
+
+    <img src="{{static 'img/figure1a.png'}}">
+
+    <img src="{{static 'img/figure1b.png'}}">
+
+    <img src="{{static 'img/figure2.png'}}">
+
+    <br>You can think of the lotteries A and B as two urns containing 100 balls each: urn A and urn B. Each ball has a number written on it, representing its value.
+    In each urn, balls can have different values. You do not know the values of the balls contained in each urn or how many balls of the same value are contained in each urn. However, by clicking on the "Sample" button, you may learn the values of the balls and their composition in each urn.
+
+Every time you click on the sample button, a ball is drawn randomly from the relevant urn, and its value is revealed to you. For instance, in  fig 1a and fig 1b, above at every click of the sample button, the space above the urn reveals one of the prizes of the lottery.
+
+ After a ball is drawn and its value is displayed to you, the ball is reintroduced in the urn so that the composition of the balls in the urn remains unchanged.
+
+ Clearly, the more you sample each urn, the better information you will have about the values of the balls in the urn and their composition.
+
+Similarly, in this experiment you can think of urn A and urn B as lotteries A and B respectively, by clicking on sample A button, one of the lottery values is revealed. The amount you can earn from each draw is your outcome.
+
+You will have 500 milliseconds to view each sample prized that appears after every click.
+    If you click the "Sample A" button, you will see one of the lottery prizes on the screen.
+
+You can click each option as many times as you want to understand your options. However, you will be unable to
+    continue sampling, and if you have sampled an option 100 times, you will have to move to the selection phase to make your choice.
+
+You can sample by clicking on the left button first to learn Lottery A and then right to know about lottery B or the other way round.
+
+When you decide that you have acquired adequate information about your options, click next to move to the next page (Selection Phase, Fig. 4), where you can select your choice by clicking the A or B button. <br/>
+
+<br> After making your choice, please click on the 'Next' button to proceed to the next question. You can modify your preferred option as many times as you want before pressing the 'Next' button;
+    however, you can no longer change your preference once you advance to the next page<br/>
+
+    <br>After completing the twelfth round, you will be asked to complete a questionnaire.
+Your earnings will be paid at the end of the experiment. One of your choices will be randomly
+selected by the computer, and the lottery for that choice will be played.  The values from the lotteries are in points and 1 points = £0.2.
+    Your reward will be the amount earned from your lottery.
+    <br/>
+ <br>
+You will play one practice round followed by 12 actual rounds.
+When you click the 'Start' button below, you'll be directed to a practice round.
+<br/>
+
+
+ {{ next_button }}
+
+ {{ endblock }}

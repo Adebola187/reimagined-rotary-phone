@@ -1,0 +1,36 @@
+{{ block title}}
+Your reward
+{{ endblock }}
+
+
+{{ block content }}
+    {{ if subsession.round_number == C.NUM_ROUNDS }}
+
+{{ endif }}
+{{endblock}}
+
+{{block content}}
+<p>
+    In this question,you chose lottery: <br/>
+    {{ practiceans }} <br/>
+<br>
+A random number between 1 and 100 determines your reward from the lottery you selected.
+    <p>Your random number is: {{ probability_number }}.<p/>
+<br/>
+
+
+    <p>You have won {{ answer }} points<br/>
+    </p>
+<br> Your final reward is {{ participationfee }} + {{ answer }} * 0.2 = £{{ result }}</p>
+
+    <p>You have earned  £{{ result }}</p>
+<br>
+This reward does not add up to your final reward
+<br/>
+
+
+{{ next_button }}
+
+{{ endblock }}
+
+
